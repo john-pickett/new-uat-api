@@ -8,7 +8,8 @@ const models = {
 	User: sequelize.import('../models/user'),
     Role: sequelize.import('../models/role'),
     Grade: sequelize.import('../models/grade'),
-    Feature: sequelize.import('../models/feature')
+    Feature: sequelize.import('../models/feature'),
+    Script: sequelize.import('../models/script')
 }
 
 

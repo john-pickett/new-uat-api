@@ -8,6 +8,7 @@ const User = db.models.User;
 const Role = db.models.Role;
 const Grade = db.models.Grade;
 const Feature = db.models.Feature;
+const Script = db.models.Script;
 const app = express();
 const port = 3000;
 const seedData = require('./db/seedDB')
@@ -38,6 +39,9 @@ Role.hasMany(Feature);
 Feature.belongsTo(Role);
 Feature.hasMany(Grade);
 Grade.belongsTo(Feature);
+// Scripts
+Script.belongsTo(Feature);
+Feature.hasOne(Script);
 
 app.get('/', (req, res) => {
 	res.send('greetings and salutations from the uat app')
@@ -110,8 +114,16 @@ app.get('/grades', (req, res) => {
 
 app.get('/features', (req, res) => {
     Feature.findAll({
-        include: [{ model: Role }, { model: Grade }]
+        include: [{ model: Role }, { model: Grade }, { model: Script}]
     }).then((features) => {
         res.send(features)
+    })
+})
+
+app.get('/scripts', (req, res) => {
+    Script.findAll({
+        include: [{model: Feature}]
+    }).then((scripts) => {
+        res.send(scripts)
     })
 })
