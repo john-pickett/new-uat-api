@@ -51,7 +51,42 @@ const featuresList = ['New button that clicks',
     'New table with sortable column headers'
 ];
 
-const scriptsList = []
+/* 
+In a script:
+Feature: New user profile allows you to edit your name
+
+set-up: {
+    Go to URL your-site.com
+    Login (potentially)
+}
+
+instructions: {
+    step-one: {
+        step: Click hamburger menu,
+        result: New menu opens
+    },
+    step-two: {
+        step: Select user profile from menu,
+        result: You are taken to your user profile
+    },
+    step-three: {
+        step: Verify that your user information is correct,
+        result: Your information shown in accurate
+    },
+    step-four: {
+        step: Click on your name, and enter a new value,
+        result: The new result is saved, and your updated name is displayed
+    }
+}
+
+
+
+*/
+
+const scriptsList = [{
+    step0: 'Go to <URL>',
+
+}];
 
 const seedData = {
     rolesList,

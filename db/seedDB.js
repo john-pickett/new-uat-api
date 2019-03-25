@@ -73,7 +73,7 @@ const createDataInDB = async () => {
 
     for (var m = 0; m < featuresList.length; m ++) {
         await Script.create({
-            name: 'Script ' + (Number(m) + 1),
+            name: 'Script ' + (m + 1),
             feature_id: featureRows[m].id,
             steps: ['step one', 'step two', 'step three']
         })
