@@ -13,8 +13,14 @@ const script = (sequelize, DataTypes) => {
         name: {
             type: DataTypes.STRING
         },
+        description: {
+            type: DataTypes.STRING
+        },
+        url: {
+            type: DataTypes.STRING
+        },
         steps: {
-            type: DataTypes.ARRAY(DataTypes.STRING)
+            type: DataTypes.JSON
         }
     }, {
         underscored: true

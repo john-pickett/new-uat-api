@@ -15,7 +15,14 @@ const seedData = require('./db/seedDB')
 
 app.use(bodyParser.json());
 
-const eraseDatabaseOnSync = true;
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS, PUT, DELETE, PATCH");
+    next();
+});
+
+const eraseDatabaseOnSync = false;
 
 sequelize.sync({force: eraseDatabaseOnSync}).then(() => {
     if (eraseDatabaseOnSync) {
@@ -59,10 +66,10 @@ app.get('/users', (req, res) => {
 });
 
 app.post('/users', (req, res) => {
-	var first_name = req.body.first_name;
-	var last_name = req.body.last_name;
-	var email = req.body.email;
-	var role_id = req.body.role_id;
+	const first_name = req.body.first_name;
+	const last_name = req.body.last_name;
+	const email = req.body.email;
+	const role_id = req.body.role_id;
 
 	const newUser = User.build({
 		first_name: first_name,
@@ -91,7 +98,7 @@ app.get('/roles', (req, res) => {
 });
 
 app.post('/roles', (req, res) => {
-	var name = req.body.name;
+	const name = req.body.name;
 
 	const newRole = Role.build({
 		name: name
@@ -126,4 +133,37 @@ app.get('/scripts', (req, res) => {
     }).then((scripts) => {
         res.send(scripts)
     })
+});
+
+app.post('/scripts', (req, res) => {
+    const feature_id = req.body.feature_id;
+    const name = req.body.name;
+    const url = req.body.url;
+    const description = req.body.description;
+    const steps = req.body.steps;
+
+    const newScript = Script.build({
+        feature_id,
+        name,
+        url,
+        description,
+        steps
+    });
+
+    newScript.save().then((script) => {
+		res.send("Script saved: " + JSON.stringify(script))
+	}).catch((err) => {
+		res.send('Error saving script: ' + err);
+	});
+
 })
+
+/*
+
+newRole.save().then((record) => {
+		res.send("Role saved: " + JSON.stringify(record))
+	}).catch((err) => {
+		res.send('Error saving role: ' + err);
+    });
+    
+    */

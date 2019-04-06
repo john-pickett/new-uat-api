@@ -75,7 +75,14 @@ const createDataInDB = async () => {
         await Script.create({
             name: 'Script ' + (m + 1),
             feature_id: featureRows[m].id,
-            steps: ['step one', 'step two', 'step three']
+            url: 'https://www.test.com/' + m,
+            steps: [
+                { action: 'Step one action', outcome: 'Step one outcome' },
+                { action: 'Step two action', outcome: 'Step two outcome' },
+                { action: 'Step three action', outcome: 'Step three outcome' },
+                { action: 'Step four action', outcome: 'Step four outcome' }
+            ],
+            description: 'Here is the description of this feature'
         })
     }
 
